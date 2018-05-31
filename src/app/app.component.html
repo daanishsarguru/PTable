@@ -1,0 +1,82 @@
+<ul>
+    <li (click)="showTable(0)">Friend Table</li>
+    <li (click)="showTable(1)">Student Table</li>
+    <li (click)="showTable(2)">Bike Table</li>
+</ul>
+
+<!--Friend Table-->
+<p-table #dt [columns]="friendsDisplayedColumns" [value]="friendsArray" *ngIf="tableArray[0]" [paginator]="true" [rows]="2">
+    <ng-template pTemplate="caption">
+        <div style="text-align: right">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+        <tr>
+            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <input *ngSwitchCase="'id'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                <input *ngSwitchCase="'dept'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-friend let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{friend[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer" let-columns>
+        <tr>
+            <td *ngFor="let col of friendsFooter">
+                {{col}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<!--Student Table-->
+<p-table [columns]="studentsDisplayedColumns" [value]="studentsArray" *ngIf="tableArray[1]" [paginator]="true" [rows]="2">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-student let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{student[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<!--Bike Table-->
+<p-table [columns]="bikeDisplayedColumns" [value]="bikesArray" *ngIf="tableArray[2]" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bike let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{bike[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
