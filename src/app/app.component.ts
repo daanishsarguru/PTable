@@ -97,13 +97,7 @@ export class AppComponent
       if (Object.keys(friendsTable.filters).length === 0) {
         this.computeFooter(this.friendsArray);
       } else {
-        // setTimeout(() => this.computeFooter(this.friendsTable.filteredValue), 500);
-        const refreshId = setInterval(() => {
-          if (this.friendsTable != null && this.friendsTable.filteredValue != null) {
-            this.computeFooter(this.friendsTable.filteredValue);
-            clearInterval(refreshId);
-          }
-        }, 250);
+        setTimeout(() => this.computeFooter(this.friendsTable.filteredValue), 750);
       }
     }
   }
@@ -132,24 +126,11 @@ export class AppComponent
         }
         table.filter(filters[filter].value, filter, filters[filter].matchMode);
       }
-      const resetRefreshId = setInterval(() => {
-        if (this.friendsTable != null && this.friendsTable.filteredValue != null) {
-          this.computeFooter(this.friendsTable.filteredValue);
-          clearInterval(resetRefreshId);
-        }
-      }, 250);
     } else {
       this.dateTimeOut = setTimeout(() => {
         console.log(table);
         table.filter(filterDate, column, 'equals');
       }, 250);
     }
-    // setTimeout(() => this.computeFooter(this.friendsTable.filteredValue), 1000);
-    const refreshId = setInterval(() => {
-      if (this.friendsTable != null && this.friendsTable.filteredValue != null) {
-        this.computeFooter(this.friendsTable.filteredValue);
-        clearInterval(refreshId);
-      }
-    }, 250);
   }
 }
