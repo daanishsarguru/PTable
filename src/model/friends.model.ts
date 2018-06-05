@@ -1,5 +1,8 @@
 export class Friends {
   public id: number;
-  public name: String;
-  public dept: String;
+  public name: string;
+  public dept: string;
+  public passedSubjects: number;
+  public remarks: string;
+  public date: Date;
 }
